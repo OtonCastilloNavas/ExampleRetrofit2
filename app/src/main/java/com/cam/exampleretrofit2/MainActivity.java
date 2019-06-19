@@ -3,6 +3,7 @@ package com.cam.exampleretrofit2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,28 +31,66 @@ public class MainActivity extends AppCompatActivity {
         ServicioAPI servicioAPI = Servicio.getINSTANCE();
 
         Clase clase = new Clase();
-        clase.setCredito(2);
-        clase.setNombre("IA");
-        Call<Clase> claseCall = servicioAPI.createClases(clase);
+        clase.setId(2);
+        clase.setCredito(5);
+        clase.setNombre("Hacking");
+//delete
+        Call<Clase> claseCall = servicioAPI.deleteClases(2);
         claseCall.enqueue(new Callback<Clase>() {
             @Override
             public void onResponse(Call<Clase> call, Response<Clase> response) {
                 if(response.isSuccessful())
-                {
-                    ettexto.setText(response.message());
-                }
-                try {
-                    ettexto.setText("regreso:" + response.errorBody().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    ettexto.setText("borrado");
+                else
+                    ettexto.setText("No borrado");
             }
 
             @Override
             public void onFailure(Call<Clase> call, Throwable t) {
-                ettexto.setText(t.toString());
+                ettexto.setText("Error");
             }
         });
+
+        //update
+//        Call<Clase> claseCall = servicioAPI.updateClases(clase,11);
+//        claseCall.enqueue(new Callback<Clase>() {
+//            @Override
+//            public void onResponse(Call<Clase> call, Response<Clase> response) {
+//                if(response.isSuccessful())
+//                {
+//                    ettexto.setText(response.body().toString());
+//                }
+//                else {
+//                    try {
+//                        ettexto.setText(response.errorBody().string());
+//                        Log.e("ErroBody",response.errorBody().string());
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Clase> call, Throwable t) {
+//                ettexto.setText("Error: " + t.toString());
+//            }
+//        });
+
+        //insertar
+        //Call<Clase> claseCall = servicioAPI.createClases(clase);
+//        claseCall.enqueue(new Callback<Clase>() {
+//            @Override
+//            public void onResponse(Call<Clase> call, Response<Clase> response) {
+//                if(response.isSuccessful())
+//                {
+//                    ettexto.setText(response.body().toString());
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<Clase> call, Throwable t) {
+//                ettexto.setText(t.toString());
+//            }
+//        });
 
         //UNO
     //        Call<Clase> claseCall= servicioAPI.getClase(3);
